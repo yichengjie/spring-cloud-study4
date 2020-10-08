@@ -15,3 +15,7 @@ zuul:
     client-a:
       path: /client/**
       serviceId: client-a
+# 禁止ribbon使用eureka
+ribbon:
+  eureka:
+    enabled: false
