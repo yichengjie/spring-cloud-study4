@@ -20,7 +20,18 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie,Autorization,X-Token
   # 重试机制开启
   retryable: true
+  # 服务屏蔽，禁止以/client-a/**访问路劲
+  ignored-services: client-a
 # 禁止ribbon使用eureka,如果设置禁用将找不到微服务client-a
 ribbon:
   eureka:
     enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
