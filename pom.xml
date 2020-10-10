@@ -8,6 +8,7 @@
         <module>eureka-client</module>
         <module>zuul-server</module>
         <module>client-a</module>
+        <module>auth-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

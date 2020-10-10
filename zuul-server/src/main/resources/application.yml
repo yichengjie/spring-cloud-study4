@@ -35,3 +35,14 @@ management:
   endpoint:
     health:
       show-details: always
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:7777/uua/oauth/token #令牌端点
+      user-authorization-uri: http://localhost:7777/uua/oauth/authorize # 授权端点
+      client-id: zuul_server # oauth2 客户端id
+      client-secret: secret # oauth2客户端密匙
+    resource:
+      jwt:
+        key-value: springcloud123 # 使用对称加密方式，默认算法是HS256

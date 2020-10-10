@@ -11,11 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyConfig {
 
-    @Bean
+   /* @Bean
     public FirstPreFilter firstZuulFilter(){
         return new FirstPreFilter() ;
     }
-
     @Bean
     public SecondPreFilter secondZuulFilter(){
         return new SecondPreFilter() ;
@@ -27,5 +26,5 @@ public class MyConfig {
     @Bean
     public PostFilter postFilter(){
         return new PostFilter() ;
-    }
+    }*/
 }
