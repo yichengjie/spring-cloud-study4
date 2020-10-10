@@ -1,6 +1,13 @@
 spring:
   application:
     name: zuul-server
+  datasource:
+    # >= 6.x com.mysql.cj.jdbc.Driver
+    # <= 5.x com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: root
 server:
   port: 5555
 eureka:

@@ -1,15 +1,27 @@
 package com.yicj.zuulserver.config;
 
-import com.netflix.zuul.ZuulFilter;
-import com.yicj.zuulserver.filter.FirstPreFilter;
-import com.yicj.zuulserver.filter.PostFilter;
-import com.yicj.zuulserver.filter.SecondPreFilter;
-import com.yicj.zuulserver.filter.ThirdPreFilter;
+import com.yicj.zuulserver.zuul.DynamicZuulRouteLocator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MyConfig {
+    @Autowired
+    private ZuulProperties zuulProperties ;
+    @Autowired
+    private ServerProperties serverProperties ;
+
+    @Bean
+    public DynamicZuulRouteLocator routeLocator(){
+        DynamicZuulRouteLocator routeLocator = new DynamicZuulRouteLocator(
+                serverProperties.getServlet().getContextPath(),
+                zuulProperties
+        ) ;
+        return routeLocator ;
+    }
 
    /* @Bean
     public FirstPreFilter firstZuulFilter(){
