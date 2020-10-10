@@ -12,6 +12,6 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 public class ZuulServerApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZuulServerApp.class, args) ;
+        SpringApplication.run(ZuulServerApp.class, args/*"--spring.profiles.active=node3"*/) ;
     }
 }
