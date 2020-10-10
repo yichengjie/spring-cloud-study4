@@ -15,7 +15,7 @@ zuul:
     client-a:
       path: /client/**
       serviceId: client-a
-# 禁止ribbon使用eureka
+# 禁止ribbon使用eureka,如果设置禁用将找不到微服务client-a
 ribbon:
   eureka:
-    enabled: false
+    enabled: true
