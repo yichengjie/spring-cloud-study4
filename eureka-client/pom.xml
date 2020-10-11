@@ -49,6 +49,12 @@
             <scope>test</scope>
         </dependency>
         <!-- 单元测试 end-->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

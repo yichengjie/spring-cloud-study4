@@ -6,14 +6,22 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: jd_route
-          uri: https://www.jd.com/
-          predicates:
-            - Path=/jd
-#        - id: baidu_route
-#          uri: http://www.baidu.com
+#        - id: jd_route
+#          uri: https://www.jd.com/
 #          predicates:
-#              - Path=/baidu
+#            - Path=/jd
+#        - id: baidu_route
+#          uri: http://baidu.com:80/
+#          predicates:
+#            - Path=/baidu
+#          filters:
+#            - StripPrefix=1
+        - id: baidu_route
+          uri: http://baidu.com:80/
+          predicates:
+            - Path=/baidu/test/**
+          filters:
+            - StripPrefix=2
 server:
   port: 8080
 eureka:
