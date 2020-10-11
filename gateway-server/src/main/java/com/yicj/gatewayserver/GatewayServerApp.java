@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -76,13 +77,25 @@ public class GatewayServerApp {
 //                ).build() ;
 //    }
 
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
+//        return builder.routes()
+//                .route("add_response_header_route",
+//                        r -> r.path("/test")
+//                        .filters(f -> f.addResponseHeader("X-Response-Foo","Bar"))
+//                        .uri("lb://eureka-client")
+//                ).build() ;
+//    }
+
+    // 重试次数
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
         return builder.routes()
-                .route("add_response_header_route",
-                        r -> r.path("/test")
-                        .filters(f -> f.addResponseHeader("X-Response-Foo","Bar"))
-                        .uri("lb://eureka-client")
+                .route("retry_route",
+                        r -> r.path("/test/**")
+                                .filters(f -> f.retry(retryConfig -> retryConfig.setRetries(2).setStatuses(HttpStatus.INTERNAL_SERVER_ERROR)))
+                                //.uri("http://localhost:8081/retry?key=abc&count=2")
+                                .uri("lb://eureka-client")
                 ).build() ;
     }
 }
