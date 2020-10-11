@@ -16,12 +16,36 @@ spring:
 #            - Path=/baidu
 #          filters:
 #            - StripPrefix=1
-        - id: baidu_route
-          uri: http://baidu.com:80/
+        - id: sc-consumer
+          uri: lb://EUREKA-CLIENT
           predicates:
-            - Path=/baidu/test/**
+            - Path=/EUREKA-CLIENT/**
           filters:
-            - StripPrefix=2
+            - RewritePath=/EUREKA-CLIENT/(?<segment>.*),/$\{segment}
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+#        - id: baidu_route
+#          uri: http://baidu.com:80/
+#          predicates:
+#            - Path=/baidu/test/**
+#          filters:
+#            - StripPrefix=2
+#        - id: prefix_route
+#          url: lb://eureka-client
+#          predicates:
+#            - Path=/test/*
+#          filters:
+#            - name: Hystrix  # Hystrix Filter的名称
+#              args:
+#                name: fallbackcmd
+#                fallbackUri: forward:/fallback
+
+# hystrix的fallbackcmd的时间
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 5000
+
+
 server:
   port: 8080
 eureka:
@@ -46,4 +70,3 @@ logging:
     org.springframework.http.server.reactive: debug
     org.springframework.web.reactive: debug
     reactor.ipc.netty: debug
-
