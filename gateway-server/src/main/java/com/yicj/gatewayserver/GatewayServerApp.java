@@ -1,5 +1,6 @@
 package com.yicj.gatewayserver;
 
+import com.yicj.gatewayserver.filter.gateway.CustomGatewayFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -88,14 +89,26 @@ public class GatewayServerApp {
 //    }
 
     // 重试次数
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
+//        return builder.routes()
+//                .route("retry_route",
+//                        r -> r.path("/test/**")
+//                                .filters(f -> f.retry(retryConfig -> retryConfig.setRetries(2).setStatuses(HttpStatus.INTERNAL_SERVER_ERROR)))
+//                                //.uri("http://localhost:8081/retry?key=abc&count=2")
+//                                .uri("lb://eureka-client")
+//                ).build() ;
+//    }
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
         return builder.routes()
-                .route("retry_route",
-                        r -> r.path("/test/**")
-                                .filters(f -> f.retry(retryConfig -> retryConfig.setRetries(2).setStatuses(HttpStatus.INTERNAL_SERVER_ERROR)))
-                                //.uri("http://localhost:8081/retry?key=abc&count=2")
-                                .uri("lb://eureka-client")
-                ).build() ;
+            .route(r -> r.path("/test/**")
+                    .filters(f -> f.filter(new CustomGatewayFilter()))
+                    .uri("lb://eureka-client")
+                    .order(0)
+                    .id("custom_filter")
+            ).build() ;
     }
+
 }

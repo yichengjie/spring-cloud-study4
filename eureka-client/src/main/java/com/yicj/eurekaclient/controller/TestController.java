@@ -50,4 +50,14 @@ public class TestController {
         }
         return "No Sleep" ;
     }
+
+    @GetMapping("/customFilter")
+    public String customFilter(){
+        try {
+            Thread.sleep(1002);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return "hello customFilter" ;
+    }
 }

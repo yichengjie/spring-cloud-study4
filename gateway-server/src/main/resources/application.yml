@@ -6,6 +6,10 @@ spring:
   cloud:
     gateway:
       routes:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 #        - id: jd_route
 #          uri: https://www.jd.com/
 #          predicates:
@@ -16,16 +20,12 @@ spring:
 #            - Path=/baidu
 #          filters:
 #            - StripPrefix=1
-        - id: sc-consumer
-          uri: lb://EUREKA-CLIENT
-          predicates:
-            - Path=/EUREKA-CLIENT/**
-          filters:
-            - RewritePath=/EUREKA-CLIENT/(?<segment>.*),/$\{segment}
-#      discovery:
-#        locator:
-#          enabled: true
-#          lower-case-service-id: true
+#        - id: sc-consumer
+#          uri: lb://EUREKA-CLIENT
+#          predicates:
+#            - Path=/EUREKA-CLIENT/**
+#          filters:
+#            - RewritePath=/EUREKA-CLIENT/(?<segment>.*),/$\{segment}
 #        - id: baidu_route
 #          uri: http://baidu.com:80/
 #          predicates:
