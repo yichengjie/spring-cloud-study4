@@ -1,12 +1,14 @@
 package com.yicj.zuulserver.config;
 
 import com.netflix.zuul.ZuulFilter;
+import com.yicj.zuulserver.anno.AvoidScan;
 import com.yicj.zuulserver.filter.FirstPreFilter;
 import com.yicj.zuulserver.filter.PostFilter;
 import com.yicj.zuulserver.filter.SecondPreFilter;
 import com.yicj.zuulserver.filter.ThirdPreFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 @Configuration
 public class MyConfig {

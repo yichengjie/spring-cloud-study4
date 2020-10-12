@@ -1,5 +1,6 @@
 package com.yicj.gatewayserver;
 
+import com.yicj.gatewayserver.anno.AvoidScan;
 import com.yicj.gatewayserver.filter.gateway.CustomGatewayFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +9,8 @@ import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -16,6 +19,7 @@ import java.time.ZonedDateTime;
 
 //@EnableDiscoveryClient
 @SpringBootApplication
+@ComponentScan(excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = AvoidScan.class)})
 public class GatewayServerApp {
     public static void main(String[] args) {
         SpringApplication.run(GatewayServerApp.class, args);
@@ -100,15 +104,15 @@ public class GatewayServerApp {
 //                ).build() ;
 //    }
 
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
-        return builder.routes()
-            .route(r -> r.path("/test/**")
-                    .filters(f -> f.filter(new CustomGatewayFilter()))
-                    .uri("lb://eureka-client")
-                    .order(0)
-                    .id("custom_filter")
-            ).build() ;
-    }
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
+//        return builder.routes()
+//            .route(r -> r.path("/test/**")
+//                    .filters(f -> f.filter(new CustomGatewayFilter()))
+//                    .uri("lb://eureka-client")
+//                    .order(0)
+//                    .id("custom_filter")
+//            ).build() ;
+//    }
 
 }

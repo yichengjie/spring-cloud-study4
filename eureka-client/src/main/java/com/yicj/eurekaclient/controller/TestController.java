@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequestMapping("/test")
 public class TestController {
 
-    @GetMapping
+    @GetMapping("/hello")
     public String hello(){
         return "hello world" ;
     }
