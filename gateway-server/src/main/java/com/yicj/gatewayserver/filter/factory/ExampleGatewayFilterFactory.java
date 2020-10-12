@@ -34,13 +34,13 @@ public class ExampleGatewayFilterFactory
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
+            exchange.getAttributes().put(COUNT_START_TIME, System.currentTimeMillis()) ;
             boolean root = "root".equals(config.getOp());
             if (root){
                 log.info("====> GatewayFilter root");
             } else {
                 log.info("====> GatewayFilter customer");
             }
-            exchange.getAttributes().put(COUNT_START_TIME, System.currentTimeMillis()) ;
             // 在then方法里的，相当于aop中的后置通知
             return chain.filter(exchange).then(
                 Mono.fromRunnable(()->{
@@ -48,8 +48,7 @@ public class ExampleGatewayFilterFactory
                     Long endTime = System.currentTimeMillis()  ;
                     // do something
                     log.info("=====> complete ... " + exchange.getRequest().getURI().getRawPath() +": " + (endTime -startTime) +"ms");
-                })
-            );
+            }));
         });
     }
 

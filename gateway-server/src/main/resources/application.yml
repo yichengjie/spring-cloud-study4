@@ -8,12 +8,21 @@ spring:
 #          uri: http://localhost:8081/v1
 #          predicates:
 #            - Path=/test
-        - id: custom
+#        - id: custom
+#          uri: lb://eureka-client
+#          predicates:
+#            - Path=/test/**
+#          filters:
+#            - name: Example
+#              args:
+#                op: root
+#                type: he
+        - id: hello_v1
           uri: lb://eureka-client
           predicates:
             - Path=/test/**
           filters:
-            - name: Example
+            - name: Hello
               args:
                 op: root
                 type: he
