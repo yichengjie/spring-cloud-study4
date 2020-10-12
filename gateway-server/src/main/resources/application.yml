@@ -4,10 +4,10 @@ spring:
   cloud: #配置SpringCloudGateway的路由
     gateway:
       routes:
-#        - id: service1_v1
-#          uri: http://localhost:8081/v1
-#          predicates:
-#            - Path=/test
+        - id: service1_v1
+          uri: http://localhost:8081/v1
+          predicates:
+            - Path=/v1
 #        - id: custom
 #          uri: lb://eureka-client
 #          predicates:
@@ -17,15 +17,15 @@ spring:
 #              args:
 #                op: root
 #                type: he
-        - id: hello_v1
-          uri: lb://eureka-client
-          predicates:
-            - Path=/test/**
-          filters:
-            - name: Hello
-              args:
-                op: root
-                type: he
+#        - id: hello_v1
+#          uri: lb://eureka-client
+#          predicates:
+#            - Path=/test/**
+#          filters:
+#            - name: Hello
+#              args:
+#                op: root
+#                type: he
 #spring:
 #  application:
 #    name: gateway-server
@@ -104,7 +104,8 @@ management:
       enabled: true
 logging:
   level:
-    org.springframework.cloud.gateway: trace
-    org.springframework.http.server.reactive: debug
-    org.springframework.web.reactive: debug
-    reactor.ipc.netty: debug
+    reactor.netty: debug
+#    org.springframework.cloud.gateway: trace
+#    org.springframework.http.server.reactive: debug
+#    org.springframework.web.reactive: debug
+#    reactor.ipc.netty: debug
